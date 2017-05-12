@@ -1,0 +1,17 @@
+Fixes for 01submitPitchPerfect
+
+1) Fixed recordingLabel: UILabel from dissapearing in landscapte mode for iPhone SE
+
+2) Adjusted constraint in for different size screen in landscape and portrait for overall better layout.
+
+3) Applied this code in Play Sounds view Controller's  viewDidLoad() to fix sound effects buttons from quishing in iPhone SE landscape mode.  
+
+		let arrayOfButtons = [snailButton, chipmunkButton, rabbitButton, vaderButton, echoButton, reverbButton]
+
+    	for button in arrayOfButtons {
+        	button.imageView?.contentMode = .scaleAspectFit
+    	}
+
+4) Removed viewWillAppear() from RerorcSoundViewController. Not function or method implemented with it.
+
+ 

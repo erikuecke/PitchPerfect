@@ -27,6 +27,7 @@ class PlaySoundsViewController: UIViewController {
     var stopTimer: Timer!
    
     
+    
 // MARK: - Correlating buttonType to effect
     enum ButtonType: Int {
         case slow = 0, fast, chipmunk, vader, echo, reverb
@@ -59,6 +60,13 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAudio()
+        
+        // Button Quish in iPhone SE fix
+        let arrayOfButtons = [snailButton, chipmunkButton, rabbitButton, vaderButton, echoButton, reverbButton]
+        
+        for button in arrayOfButtons {
+            button?.imageView?.contentMode = .scaleAspectFit
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
