@@ -23,29 +23,25 @@ class RecordSoundsViewController: UIViewController {
     }
 
     
-    func recUIViewStates(recEnabled: Bool, stopRecEnabled: Bool, recText: String) {
-        recordButton.isEnabled = recEnabled
-        stopRecordingButton.isEnabled = stopRecEnabled
-        recordingLabel.text = recText
+
+    func recUIViewStates(isRecording: Bool) {
+        recordButton.isEnabled = !isRecording
+        recordingLabel.text = isRecording ? "Recording in progress" : "Tap to record"
+        stopRecordingButton.isEnabled = isRecording
     }
     
-    enum RecordState {
-        case isRecording
-        case notRecording
-    }
     
-    func recordButtonsState(isOrNotRecording state: RecordState) {
-        switch state {
-        case .isRecording:
-            recUIViewStates(recEnabled: false, stopRecEnabled: true, recText: "Recording In Progress")
-        case .notRecording:
-            recUIViewStates(recEnabled: true, stopRecEnabled: false, recText: "Tap To Record")
+    func recordButtonsState(isOrNotRecording state: Bool) {
+        if state {
+            recUIViewStates(isRecording: true)
+        } else {
+            recUIViewStates(isRecording: false)
         }
     }
 
 
     @IBAction func recordAudio(_ sender: Any) {
-        recordButtonsState(isOrNotRecording: .isRecording)
+        recordButtonsState(isOrNotRecording: true)
         
         
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
@@ -66,7 +62,7 @@ class RecordSoundsViewController: UIViewController {
     }
 
     @IBAction func stopRecording(_ sender: Any) {
-        recordButtonsState(isOrNotRecording: .notRecording)
+        recordButtonsState(isOrNotRecording: false)
         audioRecorder.stop()
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
